@@ -1,0 +1,30 @@
+{
+  "name": "@tanglelabs/oid4vc-components",
+  "version": "0.0.1-alpha.1",
+  "description": "Provides web components for oid4vc",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "build": "npx tsc"
+  },
+  "keywords": [
+    "oid4vc",
+    "tangle-labs",
+    "qr",
+    "web-components"
+  ],
+  "author": "Tangle Labs <team@tanglelabs.io> (https://www.tanglelabs.io)",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "@types/node": "20.11.1",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "@tanglelabs/oid4vc": "^0.2.0",
+    "qr-code-styling": "1.6.0-rc.1"
+  }
+}
