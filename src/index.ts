@@ -1,3 +1,3 @@
-import Qr from "./components/qr";
+import OpenIdQr from "./components/qr";
 
-export default Qr;
+export default OpenIdQr;
