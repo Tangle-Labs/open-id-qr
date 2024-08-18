@@ -1,6 +1,6 @@
 {
   "name": "@tanglelabs/open-id-qr",
-  "version": "0.0.1-alpha.1",
+  "version": "0.0.1",
   "description": "Provides web components for oid4vc",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -8,7 +8,10 @@
     "/dist"
   ],
   "scripts": {
-    "build": "npx tsc"
+    "build": "tsc",
+    "lint": "eslint . --cache",
+    "format": "prettier -w \"**/*.{ts,js,json,scss,css}\"",
+    "format-check": "prettier -c \"src/**{ts,js,json,scss,css}\""
   },
   "keywords": [
     "oid4vc",
@@ -24,6 +27,11 @@
     "typescript": "^5.5.4"
   },
   "dependencies": {
-    "qr-code-styling": "1.6.0-rc.1"
+    "@typescript-eslint/eslint-plugin": "^8.1.0",
+    "@typescript-eslint/parser": "^8.1.0",
+    "eslint": "^9.9.0",
+    "prettier": "^3.3.3",
+    "qr-code-styling": "1.6.0-rc.1",
+    "tslint": "^6.1.3"
   }
 }

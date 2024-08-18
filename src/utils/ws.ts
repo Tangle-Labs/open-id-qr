@@ -14,7 +14,7 @@ export function createWebsocket(uri: string) {
             retries++;
             if (retries < 10) return;
             if (!interval) return;
-            clearInterval(interval);
+            clearInterval(interval as NodeJS.Timeout);
         }, 2000);
     };
     ws.onopen = () => {
