@@ -1,4 +1,11 @@
 import QrCodeStyling from "qr-code-styling";
+import { createWebsocket } from "../utils/ws";
+
+interface IMessage {
+    status: "success" | "failure";
+    type: "vp" | "id" | "vc";
+    state: string;
+}
 
 class OpenIdQr extends HTMLElement {
     requestUri: string;
@@ -42,6 +49,44 @@ class OpenIdQr extends HTMLElement {
         });
 
         qr.append(this.qrTarget);
+
+        if (this.eventStreamUri) this.watchEventStream(this.eventStreamUri);
+    }
+
+    private dispatchOpenIdEvent(message: IMessage) {
+        const event = new CustomEvent(`open-id-qr-${message.status}`, {
+            bubbles: true,
+            cancelable: true,
+            detail: message,
+        });
+        this.dispatchEvent(event);
+    }
+
+    private watchSSEStream(uri: string) {
+        const eventSource = new EventSource(uri);
+        eventSource.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            this.dispatchOpenIdEvent(data);
+        };
+    }
+
+    private watchWebSocketStream(uri: string) {
+        const ws = createWebsocket(uri);
+        ws.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            this.dispatchOpenIdEvent(data);
+        };
+    }
+
+    private watchEventStream(uri: string) {
+        if (uri.startsWith("wss://") || uri.startsWith("ws://")) {
+            this.watchWebSocketStream(uri);
+        } else if (uri.startsWith("http://") || uri.startsWith("https://")) {
+            this.watchSSEStream(uri);
+        } else {
+            const protocol = uri.split("://")[0];
+            throw new Error(`protocol \`${protocol}\` is not supported`);
+        }
     }
 
     disconnectedCallback() {}
