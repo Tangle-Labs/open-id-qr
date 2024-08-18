@@ -1,19 +1,50 @@
-import QRCodeStyling, { Options } from "qr-code-styling";
+import QrCodeStyling from "qr-code-styling";
 
-export default class OpenIdQr {
-  private _qrOptions: Options;
-  private _onSuccess: () => void;
-  private _onFailure: () => void;
-  public qr: QRCodeStyling;
-  constructor(
-    qrOptions: Options,
-    requestUri: string,
-    onSuccess: () => void,
-    onFailure: () => void
-  ) {
-    this._qrOptions = qrOptions;
-    this._onSuccess = onSuccess;
-    this._onFailure = onFailure;
-    this.qr = new QRCodeStyling({ ...this._qrOptions, data: requestUri });
-  }
+class OpenIdQr extends HTMLElement {
+    requestUri: string;
+    eventStreamUri: string | null;
+    size: number;
+    qrTarget: HTMLElement;
+
+    constructor() {
+        super();
+        this.requestUri = "";
+        this.eventStreamUri = "";
+        this.size = 300;
+
+        const shadow = this.attachShadow({ mode: "open" });
+        const canvasElement = document.createElement("div");
+        canvasElement.id = "qr-canvas";
+        shadow.appendChild(canvasElement);
+        this.qrTarget = canvasElement;
+    }
+
+    connectedCallback() {
+        const requestUri = this.getAttribute("requestUri");
+        if (!requestUri) throw new Error("`requestUri` is required");
+
+        const size = this.getAttribute("size");
+        this.requestUri = requestUri;
+        this.eventStreamUri = this.getAttribute("eventStreamURI");
+        this.size = Number(size ?? this.size);
+
+        const qr = new QrCodeStyling({
+            type: "svg",
+            width: this.size,
+            height: this.size,
+            data: this.requestUri,
+            backgroundOptions: {
+                color: "#ffffff",
+            },
+            dotsOptions: {
+                color: "#1d1d1d",
+            },
+        });
+
+        qr.append(this.qrTarget);
+    }
+
+    disconnectedCallback() {}
 }
+
+customElements.define("open-id-qr", OpenIdQr);

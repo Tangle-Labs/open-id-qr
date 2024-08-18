@@ -1,5 +1,5 @@
 {
-  "name": "@tanglelabs/oid4vc-components",
+  "name": "@tanglelabs/open-id-qr",
   "version": "0.0.1-alpha.1",
   "description": "Provides web components for oid4vc",
   "main": "dist/index.js",
