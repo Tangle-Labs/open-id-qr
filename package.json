@@ -20,7 +20,7 @@
     "web-components"
   ],
   "author": "Tangle Labs <team@tanglelabs.io> (https://www.tanglelabs.io)",
-  "license": "MIT",
+  "license": "GPL-2.0-only",
   "private": false,
   "devDependencies": {
     "@types/node": "20.11.1",
