@@ -27,12 +27,12 @@ class OpenIdQr extends HTMLElement {
     }
 
     connectedCallback() {
-        const requestUri = this.getAttribute("requestUri");
+        const requestUri = this.getAttribute("request-uri");
         if (!requestUri) throw new Error("`requestUri` is required");
 
         const size = this.getAttribute("size");
         this.requestUri = requestUri;
-        this.eventStreamUri = this.getAttribute("eventStreamURI");
+        this.eventStreamUri = this.getAttribute("event-stream-uri");
         this.size = Number(size ?? this.size);
 
         const qr = new QrCodeStyling({
