@@ -24,8 +24,8 @@ and then consume it as follows
 
 ```jsx
 <open-id-qr
-    requestUri="openid-credential-offer://..." // request URI
-    eventStreamUri="wss://" // URI to watch for events
+    request-uri="openid-credential-offer://..." // request URI
+    event-stream-uri="wss://" // URI to watch for events
     size="200" // height/width in pixels
 ></open-id-qr>
 ```
