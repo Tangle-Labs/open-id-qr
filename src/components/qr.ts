@@ -28,7 +28,7 @@ class OpenIdQr extends HTMLElement {
 
     connectedCallback() {
         const requestUri = this.getAttribute("request-uri");
-        if (!requestUri) throw new Error("`requestUri` is required");
+        if (!requestUri) throw new Error("`request-uri` is required");
 
         const size = this.getAttribute("size");
         this.requestUri = requestUri;
